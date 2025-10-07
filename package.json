@@ -2,29 +2,15 @@
   "name": "student-marks-grade",
   "version": "1.0.0",
   "private": true,
-  "description": "Student marks backend (single-file server)",
+  "description": "Student marks backend (docker build scripts)",
   "scripts": {
-    "start": "node server.js",
-    "start:dev": "nodemon server.js",
-    "docker:build": "docker build -t ${npm_package_config_docker_image:-app} .",
-    "docker:tag": "docker tag ${npm_package_config_docker_image:-app} ${npm_package_config_docker_repo:-yourdockerhubusername}/${npm_package_config_docker_image:-app}:latest",
-    "docker:push": "docker push ${npm_package_config_docker_repo:-yourdockerhubusername}/${npm_package_config_docker_image:-app}:latest",
-    "test": "echo \"No tests configured\" && exit 0"
+    "docker:build": "docker build -t ${npm_package_config_docker_image:-student-marks-grade} .",
+    "docker:tag": "docker tag ${npm_package_config_docker_image:-student-marks-grade} ${npm_package_config_docker_repo:-muthu2004}/${npm_package_config_docker_image:-student-marks-grade}:latest",
+    "docker:push": "docker push ${npm_package_config_docker_repo:-muthu2004}/${npm_package_config_docker_image:-student-marks-grade}:latest"
   },
   "config": {
-    "docker_image": "app",
-    "docker_repo": "yourdockerhubusername"
-  },
-  "engines": {
-    "node": ">=18"
-  },
-  "dependencies": {
-    "express": "^4.18.2",
-    "cors": "^2.8.5",
-    "body-parser": "^1.20.2"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.22"
+    "docker_image": "student-marks-grade",
+    "docker_repo": "muthu2004"
   },
   "author": "",
   "license": "MIT"
