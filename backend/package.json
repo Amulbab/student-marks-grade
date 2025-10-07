@@ -1,21 +1,14 @@
 {
   "name": "student-marks-backend",
   "version": "1.0.0",
-  "description": "Simple backend for managing student marks and computing grades",
-  "main": "index.js",
+  "description": "Backend for student marks",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
-    "test": "node --check index.js || echo \"No tests configured\""
+    "start": "node server.js"
   },
-  "author": "",
-  "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",
     "cors": "^2.8.5",
     "body-parser": "^1.20.2"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.22"
   }
 }

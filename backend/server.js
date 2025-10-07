@@ -6,12 +6,9 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// In-memory store for students
-// student: { id, name, marks: { subject: score, ... } }
 let students = [];
 let nextId = 1;
 
-// Grade calculation helper
 function computeGrade(avg) {
   if (avg >= 90) return 'A+';
   if (avg >= 80) return 'A';
@@ -21,7 +18,6 @@ function computeGrade(avg) {
   return 'F';
 }
 
-// Create student
 app.post('/students', (req, res) => {
   const { name, marks } = req.body;
   if (!name) return res.status(400).json({ error: 'name is required' });
@@ -30,7 +26,6 @@ app.post('/students', (req, res) => {
   res.status(201).json(student);
 });
 
-// List students with computed average and grade
 app.get('/students', (req, res) => {
   const result = students.map(s => {
     const scores = Object.values(s.marks || {});
@@ -40,7 +35,6 @@ app.get('/students', (req, res) => {
   res.json(result);
 });
 
-// Get single student
 app.get('/students/:id', (req, res) => {
   const id = parseInt(req.params.id, 10);
   const s = students.find(x => x.id === id);
@@ -50,7 +44,6 @@ app.get('/students/:id', (req, res) => {
   res.json({ ...s, average: avg, grade: computeGrade(avg) });
 });
 
-// Update student marks or name
 app.put('/students/:id', (req, res) => {
   const id = parseInt(req.params.id, 10);
   const s = students.find(x => x.id === id);
@@ -61,7 +54,6 @@ app.put('/students/:id', (req, res) => {
   res.json(s);
 });
 
-// Delete student
 app.delete('/students/:id', (req, res) => {
   const id = parseInt(req.params.id, 10);
   const idx = students.findIndex(x => x.id === id);
@@ -70,4 +62,5 @@ app.delete('/students/:id', (req, res) => {
   res.status(204).end();
 });
 
-module.exports = app;
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
