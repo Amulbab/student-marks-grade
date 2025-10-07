@@ -7,7 +7,7 @@ pipeline {
   }
 
   parameters {
-    string(name: 'IMAGE_NAME', defaultValue: 'yourdockerhubusername/student-marks-grade', description: 'Docker image name to build/push')
+    string(name: 'IMAGE_NAME', defaultValue: 'muthu2004/student-marks-grade', description: 'Docker image name to build/push')
     string(name: 'REGISTRY_CREDENTIALS', defaultValue: 'dockerhub-credentials', description: 'Jenkins credentials id (username/password) for Docker Hub')
     booleanParam(name: 'PUSH_TO_REGISTRY', defaultValue: false, description: 'If true, push the built image to Docker Hub')
   }
@@ -34,7 +34,7 @@ pipeline {
 
     stage('Syntax check') {
       steps {
-        sh 'node --check ${BACKEND_DIR}/index.js'
+        sh "node --check ${BACKEND_DIR}/server.js"
       }
     }
 
@@ -42,7 +42,7 @@ pipeline {
       steps {
         script {
           def image = "${params.IMAGE_NAME}:${BUILD_TAG}"
-          sh "docker build -t ${image} ."
+          sh "docker build -f ${env.BACKEND_DIR}/Dockerfile -t ${image} ."
           sh "docker tag ${image} ${params.IMAGE_NAME}:latest"
           env.BUILT_IMAGE = image
         }
